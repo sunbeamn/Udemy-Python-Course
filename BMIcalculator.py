@@ -27,11 +27,24 @@ def calculate():
         weight = float(enter_ur_kg.get())
         height = float(enter_ur_cm.get()) / 100
         bmi = weight / (height ** 2)
-        result_label.config(text=f"Your BMI is {round(bmi, 2)}", fg="black")
-    except ValueError:
-        result_label.config(text="Please enter valid characters.", fg="red")
 
-Button1 = tkinter.Button(text="Calculate", command=calculate)
-Button1.grid(column=0, row=4, pady=10)
+        if bmi < 18.5:
+            category = "Underweight"
+        elif 18.5 <= bmi < 25:
+            category = "Normal"
+        elif 25 <= bmi < 30:
+            category = "Overweight"
+        elif 30 <= bmi < 35:
+            category = "Obesity (Class 1)"
+        elif 35 <= bmi < 40:
+            category = "Obesity (Class 2)"
+        else:
+            category = "Extreme Obesity"
+
+        result_text = f"Your BMI is {round(bmi, 2)}\nCategory: {category}"
+        result_label.config(text=result_text, fg="black")
+
+    except ValueError:
+        result_label.config(text="Please enter a valid number.", fg="red")
 
 root.mainloop()
